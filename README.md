@@ -51,7 +51,22 @@ Grouping tracks by explicit content reveals that explicit songs have a higher av
 
 This suggests that explicit content may be associated with slightly greater popularity among Spotify listeners.
 
+## Step 3: NMAR Analysis
+The tempo column may be NMAR because songs with unusual or difficult-to-estimate tempos could be more likely to have missing tempo values.
 
+If tempo information is missing because of the tempo itself, then the missingness depends on an unobserved value and would therefore be NMAR.
+
+Additional information about Spotify's tempo extraction process could help determine whether the missingness is actually MAR instead.
+
+## Step 3: Missingness Dependency
+
+To investigate whether tempo missingness depends on other variables, I performed permutation tests using popularity and energy.
+
+For popularity, the permutation test produced a p-value of 0.738. Since the p-value is large, there is insufficient evidence that tempo missingness depends on popularity.
+
+For energy, the permutation test produced a p-value below 0.05. Tracks with missing tempo values tend to have substantially lower energy levels than tracks with non-missing tempo values. This provides evidence that tempo missingness depends on energy.
+
+Overall, the results suggest that tempo missingness is not MCAR and may instead be MAR with respect to energy.
 
 
 
