@@ -21,6 +21,7 @@ The goal is to determine whether features such as danceability, energy, loudness
 - explicit: whether the track contains explicit content
 
 ## Step 2: Data Cleaning
+<img width="893" height="246" alt="Screenshot 2026-06-01 at 2 41 00 AM" src="https://github.com/user-attachments/assets/0f1b3977-ce2f-4adf-b730-946d6b77cbfc" />
 
 The original dataset contained an unnecessary column named "Unnamed: 0", which only stored index information and was removed.
 
@@ -46,9 +47,10 @@ The scatter plot suggests a very weak positive relationship between danceability
 Tracks with higher danceability tend to have slightly higher popularity scores on average, although there is substantial variability and no strong linear trend.
 
 ## Interesting Aggregate
-tracks_clean.groupby('explicit')['popularity'].mean()
-False 32.94
-True 36.45
+| Explicit | Avg Popularity |
+|-----------|-----------|
+| False | 32.94 |
+| True | 36.45 |
 
 Grouping tracks by explicit content reveals that explicit songs have a higher average popularity score (36.45) than non-explicit songs (32.94).
 
