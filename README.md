@@ -75,15 +75,45 @@ For energy, the permutation test produced a p-value below 0.05 (In fact it's act
 Overall, the results suggest that tempo missingness is not MCAR and may instead be MAR with respect to energy.
 
 
+## Step 4: Hypothesis Testing
+Research Question:
 
+Do explicit tracks have different popularity scores than non-explicit tracks?
 
+Null Hypothesis (H₀):
 
+Tracks with explicit content and tracks without explicit content come from the same popularity distribution.
 
+Alternative Hypothesis (H₁):
 
+Tracks with explicit content and tracks without explicit content come from different popularity distributions.
 
-## Assessment of Missingness
+Test Statistic:
 
-Coming soon.
+I used the absolute difference in mean popularity between explicit and non-explicit tracks.
+
+This test statistic is appropriate because the research question is focused on whether the average popularity differs between the two groups.
+
+Significance Level:
+
+I used a significance level of α = 0.05.
+
+Results:
+
+The observed difference in mean popularity was approximately 3.52.
+
+A permutation test with 500 permutations produced a p-value of approximately 0.000 (p < 1/500).
+
+The permutation distribution is shown below.
+<img width="888" height="245" alt="Screenshot 2026-06-04 at 4 54 40 PM" src="https://github.com/user-attachments/assets/4f6ecc6f-39de-4b07-9b91-4479c8b3b6fd" />
+
+Conclusion
+
+Since the p-value is much smaller than 0.05, I reject the null hypothesis.
+
+The results provide evidence that explicit content is associated with Spotify track popularity. Explicit tracks have higher average popularity scores than non-explicit tracks in this dataset.
+
+However, this does not prove that explicit content causes higher popularity. It only provides evidence of an association between the two variables.
 
 ## Hypothesis Testing
 
