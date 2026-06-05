@@ -22,61 +22,66 @@ The dataset contains audio and metadata features for over 114,000 Spotify tracks
 
 ## Data Cleaning and Exploratory Data Analysis
 
-<img width="893" height="246" alt="Screenshot 2026-06-01 at 2 41 00 AM" src="https://github.com/user-attachments/assets/0f1b3977-ce2f-4adf-b730-946d6b77cbfc" />
+### Data Cleaning
+The dataset was cleaned through the following steps:
+1. Removed the unnecessary Unnamed: 0 column, which only contained row index information.
+2. Selected five musically distinct genres — pop, rock, hip-hop, jazz, and classical — from the original 114 genres. Each genre contributes 1,000 tracks, resulting in a filtered dataset of 5,000 tracks.
+3. The artists.csv file was not joined to the main dataset, as this project focuses on track-level audio features and explicit content. Artist-level information was not relevant to the research question.
+4. Three text columns (artists, album_name, track_name) each contained one missing value. These rows were retained as they represented a negligible proportion of the dataset.
+5. The tempo column contained approximately 23.9% missing values within the filtered dataset. A tempo_missing indicator variable was created to preserve information about missingness, and missing values were imputed using the median tempo.
 
-The original dataset contained an unnecessary column named "Unnamed: 0", which only stored index information and was removed.
-
-Missing values were examined across all columns. Most variables contained no missing values, although the tempo column had approximately 19.4% missing values. These missing values were retained because they were later analyzed in the missingness assessment section.
-
-After cleaning, the dataset contained 114,000 rows and 21 columns.
 
 ### Univariate Analysis
+#### Distribution of Popularity by Genre
 
-<img width="893" height="266" alt="Screenshot 2026-06-01 at 2 33 49 AM" src="https://github.com/user-attachments/assets/ed8daf86-86c2-4ea7-adcc-1e53f4cd6a72" />
+<img width="1100" height="298" alt="Screenshot 2026-06-04 at 10 07 09 PM" src="https://github.com/user-attachments/assets/8d45ba4e-196f-4870-8309-cff816ff1610" />
 
-The distribution of danceability is concentrated between approximately 0.4 and 0.8, with a peak around 0.6.
+The popularity distribution is heavily right-skewed across all five genres, with a large concentration of tracks having scores near 0. Hip-hop and pop show noticeably more tracks achieving higher popularity scores compared to classical and jazz, suggesting genre plays a meaningful role in listener engagement.
 
-Extremely low and extremely high danceability values are relatively uncommon, suggesting that most Spotify tracks have moderate levels of danceability.
+#### Distribution of Danceability
+
+<img width="475" height="238" alt="Screenshot 2026-06-04 at 10 09 56 PM" src="https://github.com/user-attachments/assets/4b6435a6-0a99-43cc-9245-29aefd2f6797" />
+
+Danceability is concentrated between approximately 0.4 and 0.8, with a peak around 0.6. Extremely low and extremely high danceability values are relatively uncommon.
 
 
 ### Bivariate Analysis
+#### Danceability vs. Popularity
 
-<img width="896" height="258" alt="Screenshot 2026-06-01 at 2 34 16 AM" src="https://github.com/user-attachments/assets/25293c90-9315-4377-bc08-b831621f808d" />
+<img width="499" height="260" alt="Screenshot 2026-06-04 at 10 10 49 PM" src="https://github.com/user-attachments/assets/7deb7961-4d40-47d1-81cd-1aae1b0e234d" />
 
-The scatter plot suggests a very weak positive relationship between danceability and popularity.
+The scatter plot suggests a weak positive relationship between danceability and popularity. Tracks with moderate to high danceability (approximately 0.5–0.8) appear more likely to achieve higher popularity scores, but substantial variability exists and danceability alone is not a strong predictor.
 
-Tracks with higher danceability tend to have slightly higher popularity scores on average, although there is substantial variability and no strong linear trend.
+#### Energy vs. Popularity
+
+<img width="503" height="247" alt="Screenshot 2026-06-04 at 10 11 27 PM" src="https://github.com/user-attachments/assets/a95b1e74-1e73-4ad1-bdc4-9a5cb993b1ef" />
+
+Similarly, energy shows a weak positive relationship with popularity. Tracks with moderate to high energy levels tend to have slightly higher popularity scores on average, but the relationship remains weak and highly variable.
 
 ### Interesting Aggregate
-| Explicit | Avg Popularity |
-|-----------|-----------|
-| False | 32.94 |
-| True | 36.45 |
+The table below compares average popularity between explicit and non-explicit tracks:
+| explicit | avg_popularity | count |
+|----------|---------------|-------|
+| False | 25.95 | 4561 |
+| True | 28.87 | 439 |
 
-Grouping tracks by explicit content reveals that explicit songs have a higher average popularity score (36.45) than non-explicit songs (32.94).
+Explicit tracks have a higher average popularity score (28.87) than non-explicit tracks (25.95), despite being a much smaller group (439 vs. 4,561 tracks). This preliminary finding motivates the hypothesis test in Step 4.
 
-This suggests that explicit content may be associated with slightly greater popularity among Spotify listeners.
 
 ## Assessment of Missingness
 
 ### NMAR Analysis
-The tempo column may be NMAR because songs with unusual or difficult-to-estimate tempos could be more likely to have missing tempo values.
-
-If tempo information is missing because of the tempo itself, then the missingness depends on an unobserved value and would therefore be NMAR.
-
-Additional information about Spotify's tempo extraction process could help determine whether the missingness is actually MAR instead.
+The tempo column may be NMAR (Not Missing At Random). Songs with unusual or difficult-to-estimate tempos may be more likely to have missing tempo values — meaning the missingness could depend on the unobserved tempo value itself. Additional information about how Spotify's algorithm extracts tempo from audio signals could help determine whether the missingness is actually MAR instead.
 
 ### Missingness Dependency
 
-To investigate whether tempo missingness depends on other variables, I performed permutation tests using popularity and energy.
+To investigate whether tempo missingness depends on other variables, I ran permutation tests using the absolute difference in group means as the test statistic.
 
-For popularity, the permutation test produced a p-value of 0.738. Since the p-value is large, there is insufficient evidence that tempo missingness depends on popularity.
+For instance: 
 
-For energy, the permutation test produced a p-value below 0.05 (In fact it's actually 0). Tracks with missing tempo values tend to have substantially lower energy levels than tracks with non-missing tempo values. This provides evidence that tempo missingness depends on energy.
 
-<img width="945" height="260" alt="Screenshot 2026-06-01 at 2 35 43 AM" src="https://github.com/user-attachments/assets/9b692d41-95d3-4a75-afc2-3f288e248acc" />
 
-Overall, the results suggest that tempo missingness is not MCAR and may instead be MAR with respect to energy.
+The observed difference in mean energy between tracks with and without missing tempo was approximately 0.140 (p-value ≈ 0.000), suggesting tempo missingness does depend on energy. In contrast, the permutation test for key produced a p-value of 0.316, suggesting tempo missingness does not depend on key. These results are consistent with a MAR mechanism rather than MCAR.
 
 
 ## Hypothesis Testing
