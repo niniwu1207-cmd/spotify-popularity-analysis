@@ -55,7 +55,7 @@ The scatter plot suggests a weak positive relationship between danceability and 
 
 #### Energy vs. Popularity
 
-<img width="503" height="247" alt="Screenshot 2026-06-04 at 10 11 27 PM" src="https://github.com/user-attachments/assets/a95b1e74-1e73-4ad1-bdc4-9a5cb993b1ef" />
+<iframe src="ener_vs_pop.html" width="800" height="500" frameborder="0"></iframe>
 
 Similarly, energy shows a weak positive relationship with popularity. Tracks with moderate to high energy levels tend to have slightly higher popularity scores on average, but the relationship remains weak and highly variable.
 
