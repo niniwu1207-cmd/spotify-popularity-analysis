@@ -312,7 +312,7 @@ A permutation test with 500 permutations produced a p-value of approximately **0
 
 <iframe
     src="fairness_test.html"
-    width="100"
+    width="800"
     height="500"
     frameborder="0">
 </iframe>
