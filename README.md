@@ -109,12 +109,6 @@ A permutation test produced an observed difference in mean energy of approximate
 
 
 
-
-
-
-
-
-
 ## Hypothesis Testing
 
 ### Research Question:
@@ -123,7 +117,7 @@ Do explicit tracks have different popularity scores than non-explicit tracks?
 
 ### Null Hypothesis (H₀):
 
-Tracks with explicit content and tracks without explicit content come from the same popularity distribution.
+Tracks with explicit content and tracks without explicit content come from the same popularity distribution. Any observed difference in average popularity is due to random chance.
 
 ### Alternative Hypothesis (H₁):
 
@@ -133,7 +127,7 @@ Tracks with explicit content and tracks without explicit content come from diffe
 
 I used the absolute difference in mean popularity between explicit and non-explicit tracks.
 
-This test statistic is appropriate because the research question is focused on whether the average popularity differs between the two groups.
+This test statistic is appropriate because the research question focuses on whether the average popularity differs between the two groups, regardless of direction.
 
 ### Significance Level:
 
@@ -141,11 +135,9 @@ I used a significance level of α = 0.05.
 
 ### Results:
 
-The observed difference in mean popularity was approximately 3.52.
+The observed difference in mean popularity was approximately 2.93.
 
-A permutation test with 500 permutations produced a p-value of approximately 0.000 (p < 1/500).
-
-The permutation distribution is shown below.
+Using 2000 permutations, the permutation test produced a p-value of approximately 0.073.
 
 <iframe
 src="hypothesis_test.html"
@@ -156,11 +148,9 @@ frameborder="0">
 
 ### Conclusion
 
-Since the p-value is much smaller than 0.05, I reject the null hypothesis.
+Since the p-value (0.073) is greater than the significance level of 0.05, I fail to reject the null hypothesis.
 
-The results provide evidence that explicit content is associated with Spotify track popularity. Explicit tracks have higher average popularity scores than non-explicit tracks in this dataset.
-
-However, this does not prove that explicit content causes higher popularity. It only provides evidence of an association between the two variables.
+The results do not provide sufficient evidence to conclude that explicit and non-explicit tracks have different popularity distributions in this dataset. Although explicit tracks have a slightly higher average popularity score, the observed difference could reasonably be explained by random variation.
 
 ## Framing a Prediction Problem
 ### Research Question:
