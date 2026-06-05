@@ -3,23 +3,22 @@
 Author: Yi-Ning Wu
 
 ## Introduction
+This project investigates whether Spotify tracks containing explicit content differ in popularity from tracks without explicit content. Music streaming platforms like Spotify collect detailed audio and metadata features for millions of tracks, making it possible to study what drives listener engagement at scale.
+
 
 ### Research Question
-What factors are associated with Spotify track popularity?
+Do explicit tracks have different popularity scores than non-explicit tracks within selected Spotify genres?
 
-This project investigates which audio features are associated with Spotify track popularity. The dataset contains 114,000 tracks and 22 columns describing various characteristics of songs.
+Understanding this relationship may provide insight into listener preferences and trends in music consumption — for artists, producers, and platforms deciding how to categorize and promote content.
 
-The goal is to determine whether features such as danceability, energy, loudness, acousticness, valence, and explicit content are related to a track's popularity. Understanding these relationships may help artists, producers, and streaming platforms better understand listener preferences.
+### Dataset
+The dataset contains audio and metadata features for over 114,000 Spotify tracks spanning 114 genres. Because analyzing all 114 genres together would produce noisy results, I selected five musically distinct genres for this analysis: pop, rock, hip-hop, jazz, and classical. After filtering, the dataset contains 5,000 tracks.
 
 ### Relevant Columns
 
 - popularity: Spotify popularity score (0–100)
-- danceability: how suitable a track is for dancing
-- energy: intensity and activity level of a track
-- loudness: overall loudness of a track
-- acousticness: confidence measure of whether a track is acoustic
-- valence: positivity of the track
 - explicit: whether the track contains explicit content
+- track_genreGenre: label for each track
 
 ## Data Cleaning and Exploratory Data Analysis
 
