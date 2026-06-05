@@ -22,6 +22,7 @@ The goal is to determine whether features such as danceability, energy, loudness
 - explicit: whether the track contains explicit content
 
 ## Data Cleaning and Exploratory Data Analysis
+
 <img width="893" height="246" alt="Screenshot 2026-06-01 at 2 41 00 AM" src="https://github.com/user-attachments/assets/0f1b3977-ce2f-4adf-b730-946d6b77cbfc" />
 
 The original dataset contained an unnecessary column named "Unnamed: 0", which only stored index information and was removed.
@@ -31,6 +32,7 @@ Missing values were examined across all columns. Most variables contained no mis
 After cleaning, the dataset contained 114,000 rows and 21 columns.
 
 ### Univariate Analysis
+
 <img width="893" height="266" alt="Screenshot 2026-06-01 at 2 33 49 AM" src="https://github.com/user-attachments/assets/ed8daf86-86c2-4ea7-adcc-1e53f4cd6a72" />
 
 The distribution of danceability is concentrated between approximately 0.4 and 0.8, with a peak around 0.6.
@@ -39,6 +41,7 @@ Extremely low and extremely high danceability values are relatively uncommon, su
 
 
 ### Bivariate Analysis
+
 <img width="896" height="258" alt="Screenshot 2026-06-01 at 2 34 16 AM" src="https://github.com/user-attachments/assets/25293c90-9315-4377-bc08-b831621f808d" />
 
 The scatter plot suggests a very weak positive relationship between danceability and popularity.
@@ -71,6 +74,7 @@ To investigate whether tempo missingness depends on other variables, I performed
 For popularity, the permutation test produced a p-value of 0.738. Since the p-value is large, there is insufficient evidence that tempo missingness depends on popularity.
 
 For energy, the permutation test produced a p-value below 0.05 (In fact it's actually 0). Tracks with missing tempo values tend to have substantially lower energy levels than tracks with non-missing tempo values. This provides evidence that tempo missingness depends on energy.
+
 <img width="945" height="260" alt="Screenshot 2026-06-01 at 2 35 43 AM" src="https://github.com/user-attachments/assets/9b692d41-95d3-4a75-afc2-3f288e248acc" />
 
 Overall, the results suggest that tempo missingness is not MCAR and may instead be MAR with respect to energy.
@@ -107,6 +111,7 @@ The observed difference in mean popularity was approximately 3.52.
 A permutation test with 500 permutations produced a p-value of approximately 0.000 (p < 1/500).
 
 The permutation distribution is shown below.
+
 <iframe
 src="hypothesis_test.html"
 width="900"
