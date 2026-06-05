@@ -107,7 +107,12 @@ The observed difference in mean popularity was approximately 3.52.
 A permutation test with 500 permutations produced a p-value of approximately 0.000 (p < 1/500).
 
 The permutation distribution is shown below.
-<img width="888" height="245" alt="Screenshot 2026-06-04 at 4 54 40 PM" src="https://github.com/user-attachments/assets/4f6ecc6f-39de-4b07-9b91-4479c8b3b6fd" />
+<iframe
+src="hypothesis_test.html"
+width="900"
+height="500"
+frameborder="0">
+</iframe>
 
 ### Conclusion
 
