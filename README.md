@@ -62,9 +62,9 @@ Similarly, energy shows a weak positive relationship with popularity. Tracks wit
 ### Interesting Aggregate
 The table below compares average popularity between explicit and non-explicit tracks:
 | explicit | avg_popularity | count |
-|----------|---------------|-------|
-| False | 25.95 | 4561 |
-| True | 28.87 | 439 |
+|:-----------|------------------:|--------:|
+| False | 25.9469 | 4561 |
+| True | 28.8724 | 439 |
 
 Explicit tracks have a higher average popularity score (28.87) than non-explicit tracks (25.95), despite being a much smaller group (439 vs. 4,561 tracks). This preliminary finding motivates the hypothesis test in Step 4.
 
