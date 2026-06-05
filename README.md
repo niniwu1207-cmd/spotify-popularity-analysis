@@ -152,14 +152,12 @@ Since the p-value (0.073) is greater than the significance level of 0.05, I fail
 
 The results do not provide sufficient evidence to conclude that explicit and non-explicit tracks have different popularity distributions in this dataset. Although explicit tracks have a slightly higher average popularity score, the observed difference could reasonably be explained by random variation.
 
+
+
 ## Framing a Prediction Problem
-### Research Question:
+### Prediction Problem
 
-Which audio features are associated with Spotify track popularity?
-
-### Prediction Problem:
-
-The prediction problem is to predict a Spotify track's popularity score using its audio features.
+The prediction problem is to predict a Spotify track's popularity score using its audio features and metadata.
 
 ### Type of Problem:
 
@@ -167,113 +165,162 @@ This is a regression problem because popularity is a quantitative variable rangi
 
 ### Response Variable:
 
-The response variable is popularity.
+The response variable is popularity, which measures the popularity score assigned to a Spotify track.
 
-### Time of Prediction:
+### Features Available at Time of Prediction: 
 
-At the time of prediction, Spotify's audio features such as danceability, energy, loudness, acousticness, valence, duration_ms, and explicit content would already be available from Spotify's audio analysis system. Therefore, these variables can be used as predictors without introducing data leakage.
+At the time of prediction, Spotify audio features and metadata would already be available. Therefore, variables such as:
+- danceability
+- energy
+- loudness
+- acousticness
+- valence
+- duration_ms
+- explicit
+
+can be used as predictors without introducing data leakage.
+
 
 ### Evaluation Metric: 
 
-I will use RMSE (Root Mean Squared Error) to evaluate model performance.
+I use Root Mean Squared Error (RMSE) to evaluate model performance.
 
-RMSE is appropriate because popularity is a continuous numerical variable. It also penalizes larger prediction errors more heavily than smaller ones, making it a useful measure of how accurately the model predicts popularity scores.
+RMSE is appropriate because popularity is a quantitative response variable and prediction errors are measured on the same scale as the response variable. RMSE penalizes larger prediction errors more heavily than smaller errors, making it useful when large mistakes are undesirable.
+
+I chose RMSE over MAE because RMSE places greater emphasis on large prediction errors. I also chose RMSE over R² because RMSE directly measures prediction error in popularity units, making it easier to interpret.
+
+
 
 ## Baseline Model
-For my baseline model, I used a Linear Regression model to predict Spotify track popularity.
+For my baseline model, I use Linear Regression to predict Spotify track popularity.
 
 The model uses three features:
 
 1. danceability (quantitative)
 2. energy (quantitative)
-3. explicit (nominal categorical)
+3. explicit (nominal)
 
-There are two quantitative features, one nominal feature, and no ordinal features.
+The response variable is popularity.
 
-Since explicit is a categorical variable with values True and False, I applied One-Hot Encoding using OneHotEncoder within a sklearn Pipeline. The quantitative variables (danceability and energy) were passed through without transformation.
+Since "explicit" is a nominal categorical variable, I applied one-hot encoding before fitting the model. The quantitative variables (danceability and energy) were used without transformation.
 
-The entire preprocessing and modeling workflow was implemented in a single sklearn Pipeline consisting of a ColumnTransformer and a Linear Regression model.
+Overall, the model contains:
 
-To evaluate model performance, I used RMSE (Root Mean Squared Error), which is appropriate because popularity is a continuous numerical variable ranging from 0 to 100.
+2 quantitative features
+0 ordinal features
+1 nominal feature
 
-The baseline model achieved an RMSE of approximately 22.22 on the test set.
+I trained the model using a sklearn Pipeline that combines preprocessing and Linear Regression.
 
-I do not consider this baseline model to be particularly strong because an average prediction error of about 22 popularity points is relatively large compared to the 0–100 popularity scale. However, it provides a useful starting point for comparison when developing a more sophisticated model in Step 7.
+Model Performance
 
+The baseline model achieved an RMSE of approximately 30.87 on the held-out test set.
+
+Because popularity scores range from 0 to 100, an RMSE of 30.87 indicates that the model's predictions are often off by a substantial amount. Therefore, I do not believe this is a particularly strong predictive model.
+
+However, this baseline model provides a useful reference point for evaluating whether the final model improves predictive performance. The simplicity of the model also makes it easier to interpret and compare against more complex models.
 
 
 ## Final Model
 
-To improve upon my baseline model, I added two new features: **loudness** and **valence**.
+To improve upon the baseline model, I added two engineered features and replaced Linear Regression with Ridge Regression.
 
-I selected **loudness** because it measures the overall volume of a track and may influence listener engagement. Louder songs are often perceived as more energetic and attention-grabbing, which could affect popularity.
+### Feature Engineering
 
-I also added **valence**, which measures the positivity of a track. Since listeners may respond differently to songs with different emotional tones, valence may capture information related to listener preferences that is not already represented by danceability or energy.
+I added the following two features:
 
-For my final model, I continued using a **Linear Regression** model and included the following features:
+- `dance_energy = danceability * energy`
+- `loudness_abs = abs(loudness)`
 
-* danceability
-* energy
-* explicit
-* loudness
-* valence
+The `dance_energy` feature captures the interaction between danceability and energy. Songs that are both highly danceable and highly energetic may appeal to listeners differently than songs that are high on only one of these characteristics. Therefore, this interaction term may capture popularity patterns that are not represented by either feature alone.
 
-The categorical feature `explicit` was encoded using One-Hot Encoding, while all numerical features were passed through unchanged.
+The `loudness_abs` feature represents the magnitude of loudness regardless of sign. Since Spotify loudness values are typically negative decibel measurements, taking the absolute value may better reflect perceived track intensity. More intense tracks may attract listener attention differently, making this feature potentially useful for predicting popularity.
 
-To select the best hyperparameter configuration, I used **GridSearchCV** with 5-fold cross-validation. I tuned the `fit_intercept` parameter by comparing:
+### Modeling Algorithm
 
-* `fit_intercept = True`
-* `fit_intercept = False`
+For the final model, I replaced Linear Regression with Ridge Regression.
 
-The best-performing configuration was:
+Ridge Regression adds L2 regularization, which helps reduce overfitting and improves model stability when predictors may be correlated with one another.
 
-`fit_intercept = True`
+### Hyperparameter Tuning
 
-The final model achieved an RMSE of approximately **22.13**, compared to the baseline model RMSE of **22.22**.
+I used GridSearchCV with 5-fold cross-validation to select the best value of the Ridge regularization parameter (`alpha`).
 
-Although the improvement is relatively small, the final model performed slightly better than the baseline model. This suggests that loudness and valence provide additional information about track popularity beyond the features used in the baseline model.
+The candidate values were:
 
-Overall, popularity appears to be difficult to predict using only a small set of audio features, but the final model demonstrates a modest improvement while maintaining a simple and interpretable modeling approach.
+- 0.01
+- 0.1
+- 1
+- 10
+- 100
+
+GridSearchCV selected:
+
+**Best alpha = 10**
+
+### Model Performance
+
+The final model achieved an RMSE of approximately **30.85** on the test set.
+
+For comparison, the baseline model achieved an RMSE of approximately **30.87**.
+
+Although the improvement is relatively small, the final model incorporates additional information through feature engineering and regularization. The engineered features were chosen because they may capture aspects of track intensity and listener appeal that are not directly represented by the original variables. The slightly lower RMSE suggests that these additions provide some additional predictive signal, although Spotify track popularity remains difficult to predict accurately using audio features alone.
 
 
 ## Fairness Analysis
-For my fairness analysis, I compared the performance of my final model on two groups:
 
-Group X: Explicit tracks (explicit = True)
-Group Y: Non-explicit tracks (explicit = False)
+### Groups
 
-Since my prediction task is a regression problem, I used RMSE (Root Mean Squared Error) as the evaluation metric. RMSE is appropriate because it measures the average prediction error of the model and is consistent with the metric used throughout the project.
+For the fairness analysis, I compared:
 
-### Null Hypothesis (H₀)
+- Group X: tracks with `explicit = True`
+- Group Y: tracks with `explicit = False`
 
-The model is fair with respect to explicit content. Any difference in RMSE between explicit and non-explicit tracks is due to random chance.
+### Evaluation Metric
 
-### Alternative Hypothesis (H₁)
+I used **RMSE (Root Mean Squared Error)** as the evaluation metric.
 
-The model performs differently for explicit and non-explicit tracks.
+RMSE measures the average prediction error of the model and is appropriate because popularity is a quantitative variable. If the model is fair with respect to explicit content, we would expect similar RMSE values across both groups.
+
+### Hypotheses
+
+**Null Hypothesis (H₀):**
+
+The model has equal prediction performance for explicit and non-explicit tracks. Any observed difference in RMSE between the two groups is due to random chance.
+
+**Alternative Hypothesis (H₁):**
+
+The model has different prediction performance for explicit and non-explicit tracks. The observed difference in RMSE is not due to random chance.
 
 ### Test Statistic
 
-I used the absolute difference in RMSE between the two groups as my test statistic.
+I used the **absolute difference in RMSE** between the two groups.
 
 ### Significance Level
 
-I used a significance level of α = 0.05.
+I used a significance level of **α = 0.05**.
 
 ### Results
 
-The RMSE for non-explicit tracks was approximately 21.93, while the RMSE for explicit tracks was approximately 24.22. The observed difference in RMSE was approximately 2.29.
+The RMSE for non-explicit tracks was approximately **30.20**.
 
-I performed a permutation test with 500 permutations and obtained a p-value of approximately 0.000 (p < 0.002).
+The RMSE for explicit tracks was approximately **37.87**.
 
-The permutation distribution is shown below.
+The observed difference in RMSE was approximately **7.66**.
 
-<iframe src="fairness_test.html" width="900" height="650" frameborder="0"></iframe>
+A permutation test with 500 permutations produced a p-value of approximately **0.000** (p < 0.002).
+
+<iframe
+    src="fairness_test.html"
+    width="100%"
+    height="500"
+    frameborder="0">
+</iframe>
 
 ### Conclusion
 
-Since the p-value is much smaller than 0.05, I reject the null hypothesis.
+Because the p-value is much smaller than 0.05, I reject the null hypothesis.
 
-The results provide evidence that the model performs differently across the two groups. Specifically, the model has a higher RMSE for explicit tracks than for non-explicit tracks, suggesting that it predicts popularity less accurately for explicit songs.
+The results provide evidence that the model performs differently across the two groups. Specifically, prediction errors are substantially larger for explicit tracks than for non-explicit tracks.
 
-However, this does not prove that the model is inherently biased against explicit tracks. It only provides evidence that the prediction errors differ between the two groups in this dataset.
+Therefore, there is evidence that the model may not be fair with respect to explicit content, since it predicts popularity less accurately for explicit tracks.
