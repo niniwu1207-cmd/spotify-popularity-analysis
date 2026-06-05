@@ -4,7 +4,7 @@ Yi-Ning Wu
 
 ## Step 1: Research Question
 
-What factors are associated with Spotify track popularity?
+###What factors are associated with Spotify track popularity?
 
 This project investigates which audio features are associated with Spotify track popularity. The dataset contains 114,000 tracks and 22 columns describing various characteristics of songs.
 
@@ -76,29 +76,29 @@ Overall, the results suggest that tempo missingness is not MCAR and may instead 
 
 
 ## Step 4: Hypothesis Testing
-Research Question:
+###Research Question:
 
 Do explicit tracks have different popularity scores than non-explicit tracks?
 
-Null Hypothesis (H₀):
+### Null Hypothesis (H₀):
 
 Tracks with explicit content and tracks without explicit content come from the same popularity distribution.
 
-Alternative Hypothesis (H₁):
+### Alternative Hypothesis (H₁):
 
 Tracks with explicit content and tracks without explicit content come from different popularity distributions.
 
-Test Statistic:
+###Test Statistic:
 
 I used the absolute difference in mean popularity between explicit and non-explicit tracks.
 
 This test statistic is appropriate because the research question is focused on whether the average popularity differs between the two groups.
 
-Significance Level:
+### Significance Level:
 
 I used a significance level of α = 0.05.
 
-Results:
+### Results:
 
 The observed difference in mean popularity was approximately 3.52.
 
@@ -115,13 +115,35 @@ The results provide evidence that explicit content is associated with Spotify tr
 
 However, this does not prove that explicit content causes higher popularity. It only provides evidence of an association between the two variables.
 
-## Hypothesis Testing
+## Step 5: Framing a Prediction Problem
+### Research Question:
 
-Coming soon.
+Which audio features are associated with Spotify track popularity?
 
-## Framing a Prediction Problem
+### Prediction Problem:
 
-Prediction target: popularity.
+The prediction problem is to predict a Spotify track's popularity score using its audio features.
+
+### Type of Problem:
+
+This is a regression problem because popularity is a quantitative variable ranging from 0 to 100.
+
+### Response Variable:
+
+The response variable is popularity.
+
+### Time of Prediction:
+
+At the time of prediction, Spotify's audio features such as danceability, energy, loudness, acousticness, valence, duration_ms, and explicit content would already be available from Spotify's audio analysis system. Therefore, these variables can be used as predictors without introducing data leakage.
+
+### Evaluation Metric: 
+
+I will use RMSE (Root Mean Squared Error) to evaluate model performance.
+
+RMSE is appropriate because popularity is a continuous numerical variable. It also penalizes larger prediction errors more heavily than smaller ones, making it a useful measure of how accurately the model predicts popularity scores.
+
+
+
 
 ## Baseline Model
 
