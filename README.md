@@ -31,6 +31,18 @@ The dataset was cleaned through the following steps:
 5. The tempo column contained approximately 23.9% missing values within the filtered dataset. A tempo_missing indicator variable was created to preserve information about missingness, and missing values were imputed using the median tempo.
 
 
+### Head of Cleaned DataFrame
+
+Below is the head of the cleaned DataFrame after removing the unnecessary `Unnamed: 0` column.
+| track_id               | artists                                                   | album_name                         | track_name             |   popularity |   duration_ms | release_date   |
+|:-----------------------|:----------------------------------------------------------|:-----------------------------------|:-----------------------|-------------:|--------------:|:---------------|
+| 7wrYBASu0OoxoDErd4Edxd | Bombay Jayashri                                           | Rehnaa Hai Terre Dil Mein          | Zara Zara              |           58 |        298266 | 2001-12-01     |
+| 72HdutlIHBZJ7WT1xVAAZT | Shankar;Ehsaan;Loy;Alisha Chinai;Shankar Mahadevan;Gulzar | Bunty Aur Babli                    | Kajra Re               |           59 |        482586 | 2005-04-15     |
+| 7JGgKHHDgJCJkQCQxyHHdl | Bombay Jayashri;DJ Aftab                                  | Hindi Slowed Reverb Bollywood Lofi | Zara Zara - Lofi       |           54 |        219437 | 1984           |
+| 3YRj4jmwois2ctPnhwSwFo | Bombay Jayashri                                           | Minnalae                           | Vaseegara              |           68 |        299146 | 1972           |
+| 3tp3ij9dtY3CacQgd1OvRf | Bombay Jayashri;Swattrex                                  | Hindi LoFi Vibe                    | Zara Zara - LoFi Chill |           59 |        387716 | 1987-06        |
+
+
 ### Univariate Analysis
 #### Distribution of Popularity by Genre
 
