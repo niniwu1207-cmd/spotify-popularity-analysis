@@ -199,6 +199,44 @@ Although the improvement is relatively small, the final model performed slightly
 Overall, popularity appears to be difficult to predict using only a small set of audio features, but the final model demonstrates a modest improvement while maintaining a simple and interpretable modeling approach.
 
 
-## Fairness Analysis
+## Step 8 Fairness Analysis
+For my fairness analysis, I compared the performance of my final model on two groups:
 
-Coming soon.
+Group X: Explicit tracks (explicit = True)
+Group Y: Non-explicit tracks (explicit = False)
+
+Since my prediction task is a regression problem, I used RMSE (Root Mean Squared Error) as the evaluation metric. RMSE is appropriate because it measures the average prediction error of the model and is consistent with the metric used throughout the project.
+
+### Null Hypothesis (H₀)
+
+The model is fair with respect to explicit content. Any difference in RMSE between explicit and non-explicit tracks is due to random chance.
+
+### Alternative Hypothesis (H₁)
+
+The model performs differently for explicit and non-explicit tracks.
+
+### Test Statistic
+
+I used the absolute difference in RMSE between the two groups as my test statistic.
+
+### Significance Level
+
+I used a significance level of α = 0.05.
+
+### Results
+
+The RMSE for non-explicit tracks was approximately 21.93, while the RMSE for explicit tracks was approximately 24.22. The observed difference in RMSE was approximately 2.29.
+
+I performed a permutation test with 500 permutations and obtained a p-value of approximately 0.000 (p < 0.002).
+
+The permutation distribution is shown below.
+
+<img width="893" height="270" alt="Screenshot 2026-06-04 at 7 15 08 PM" src="https://github.com/user-attachments/assets/bdd5ecd8-e31f-43d9-b6a3-1a30d53357e6" />
+
+### Conclusion
+
+Since the p-value is much smaller than 0.05, I reject the null hypothesis.
+
+The results provide evidence that the model performs differently across the two groups. Specifically, the model has a higher RMSE for explicit tracks than for non-explicit tracks, suggesting that it predicts popularity less accurately for explicit songs.
+
+However, this does not prove that the model is inherently biased against explicit tracks. It only provides evidence that the prediction errors differ between the two groups in this dataset.
