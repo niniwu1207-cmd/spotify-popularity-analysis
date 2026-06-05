@@ -34,6 +34,8 @@ The dataset was cleaned through the following steps:
 ### Head of Cleaned DataFrame
 
 Below is the head of the cleaned DataFrame after removing the unnecessary `Unnamed: 0` column.
+
+
 | track_id               | artists                                                   | album_name                         | track_name             |   popularity |   duration_ms | release_date   |
 |:-----------------------|:----------------------------------------------------------|:-----------------------------------|:-----------------------|-------------:|--------------:|:---------------|
 | 7wrYBASu0OoxoDErd4Edxd | Bombay Jayashri                                           | Rehnaa Hai Terre Dil Mein          | Zara Zara              |           58 |        298266 | 2001-12-01     |
