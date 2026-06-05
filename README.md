@@ -243,12 +243,7 @@ I performed a permutation test with 500 permutations and obtained a p-value of a
 
 The permutation distribution is shown below.
 
-<iframe
-src="fairness_test.html"
-width="900"
-height="500"
-frameborder="0">
-</iframe>
+<iframe src="fairness_test.html" width="900" height="650" frameborder="0"></iframe>
 
 ### Conclusion
 
