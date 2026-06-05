@@ -1,10 +1,11 @@
-# Spotify Popularity Analysis
+# What Makes a Spotify Song Popular?
 
-Yi-Ning Wu
+Author: Yi-Ning Wu
 
-## Step 1: Research Question
+## Introduction
 
-### What factors are associated with Spotify track popularity?
+### Research Question
+What factors are associated with Spotify track popularity?
 
 This project investigates which audio features are associated with Spotify track popularity. The dataset contains 114,000 tracks and 22 columns describing various characteristics of songs.
 
@@ -20,7 +21,7 @@ The goal is to determine whether features such as danceability, energy, loudness
 - valence: positivity of the track
 - explicit: whether the track contains explicit content
 
-## Step 2: Data Cleaning
+## Data Cleaning and Exploratory Data Analysis
 <img width="893" height="246" alt="Screenshot 2026-06-01 at 2 41 00 AM" src="https://github.com/user-attachments/assets/0f1b3977-ce2f-4adf-b730-946d6b77cbfc" />
 
 The original dataset contained an unnecessary column named "Unnamed: 0", which only stored index information and was removed.
@@ -29,9 +30,7 @@ Missing values were examined across all columns. Most variables contained no mis
 
 After cleaning, the dataset contained 114,000 rows and 21 columns.
 
-
-
-## Step 2: Univariate Analysis
+### Univariate Analysis
 <img width="893" height="266" alt="Screenshot 2026-06-01 at 2 33 49 AM" src="https://github.com/user-attachments/assets/ed8daf86-86c2-4ea7-adcc-1e53f4cd6a72" />
 
 The distribution of danceability is concentrated between approximately 0.4 and 0.8, with a peak around 0.6.
@@ -39,14 +38,14 @@ The distribution of danceability is concentrated between approximately 0.4 and 0
 Extremely low and extremely high danceability values are relatively uncommon, suggesting that most Spotify tracks have moderate levels of danceability.
 
 
-## Step 2: Bivariate Analysis
+### Bivariate Analysis
 <img width="896" height="258" alt="Screenshot 2026-06-01 at 2 34 16 AM" src="https://github.com/user-attachments/assets/25293c90-9315-4377-bc08-b831621f808d" />
 
 The scatter plot suggests a very weak positive relationship between danceability and popularity.
 
 Tracks with higher danceability tend to have slightly higher popularity scores on average, although there is substantial variability and no strong linear trend.
 
-## Interesting Aggregate
+### Interesting Aggregate
 | Explicit | Avg Popularity |
 |-----------|-----------|
 | False | 32.94 |
@@ -56,14 +55,16 @@ Grouping tracks by explicit content reveals that explicit songs have a higher av
 
 This suggests that explicit content may be associated with slightly greater popularity among Spotify listeners.
 
-## Step 3: NMAR Analysis
+## Assessment of Missingness
+
+### NMAR Analysis
 The tempo column may be NMAR because songs with unusual or difficult-to-estimate tempos could be more likely to have missing tempo values.
 
 If tempo information is missing because of the tempo itself, then the missingness depends on an unobserved value and would therefore be NMAR.
 
 Additional information about Spotify's tempo extraction process could help determine whether the missingness is actually MAR instead.
 
-## Step 3: Missingness Dependency
+### Missingness Dependency
 
 To investigate whether tempo missingness depends on other variables, I performed permutation tests using popularity and energy.
 
@@ -75,7 +76,8 @@ For energy, the permutation test produced a p-value below 0.05 (In fact it's act
 Overall, the results suggest that tempo missingness is not MCAR and may instead be MAR with respect to energy.
 
 
-## Step 4: Hypothesis Testing
+## Hypothesis Testing
+
 ### Research Question:
 
 Do explicit tracks have different popularity scores than non-explicit tracks?
@@ -115,7 +117,7 @@ The results provide evidence that explicit content is associated with Spotify tr
 
 However, this does not prove that explicit content causes higher popularity. It only provides evidence of an association between the two variables.
 
-## Step 5: Framing a Prediction Problem
+## Framing a Prediction Problem
 ### Research Question:
 
 Which audio features are associated with Spotify track popularity?
@@ -142,7 +144,7 @@ I will use RMSE (Root Mean Squared Error) to evaluate model performance.
 
 RMSE is appropriate because popularity is a continuous numerical variable. It also penalizes larger prediction errors more heavily than smaller ones, making it a useful measure of how accurately the model predicts popularity scores.
 
-## Step 6
+## Baseline Model
 For my baseline model, I used a Linear Regression model to predict Spotify track popularity.
 
 The model uses three features:
@@ -165,7 +167,7 @@ I do not consider this baseline model to be particularly strong because an avera
 
 
 
-## Step 7 Final Model
+## Final Model
 
 To improve upon my baseline model, I added two new features: **loudness** and **valence**.
 
@@ -199,7 +201,7 @@ Although the improvement is relatively small, the final model performed slightly
 Overall, popularity appears to be difficult to predict using only a small set of audio features, but the final model demonstrates a modest improvement while maintaining a simple and interpretable modeling approach.
 
 
-## Step 8 Fairness Analysis
+## Fairness Analysis
 For my fairness analysis, I compared the performance of my final model on two groups:
 
 Group X: Explicit tracks (explicit = True)
