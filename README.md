@@ -102,7 +102,7 @@ A permutation test produced an observed difference in mean energy of approximate
 
 <iframe
     src="energy_permutation_test.html"
-    width="100%"
+    width="800"
     height="500"
     frameborder="0">
 </iframe>
