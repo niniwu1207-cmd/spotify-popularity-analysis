@@ -34,13 +34,14 @@ The dataset was cleaned through the following steps:
 ### Univariate Analysis
 #### Distribution of Popularity by Genre
 
-<img width="1100" height="298" alt="Screenshot 2026-06-04 at 10 07 09 PM" src="https://github.com/user-attachments/assets/8d45ba4e-196f-4870-8309-cff816ff1610" />
+<iframe src="spotify_track_by_genre.html" width="800" height="500" frameborder="0"></iframe>
 
 The popularity distribution is heavily right-skewed across all five genres, with a large concentration of tracks having scores near 0. Hip-hop and pop show noticeably more tracks achieving higher popularity scores compared to classical and jazz, suggesting genre plays a meaningful role in listener engagement.
 
 #### Distribution of Danceability
 
-<img width="475" height="238" alt="Screenshot 2026-06-04 at 10 09 56 PM" src="https://github.com/user-attachments/assets/4b6435a6-0a99-43cc-9245-29aefd2f6797" />
+<iframe src="dist_of_danceability.html" width="800" height="500" frameborder="0"></iframe>
+
 
 Danceability is concentrated between approximately 0.4 and 0.8, with a peak around 0.6. Extremely low and extremely high danceability values are relatively uncommon.
 
@@ -48,7 +49,7 @@ Danceability is concentrated between approximately 0.4 and 0.8, with a peak arou
 ### Bivariate Analysis
 #### Danceability vs. Popularity
 
-<img width="499" height="260" alt="Screenshot 2026-06-04 at 10 10 49 PM" src="https://github.com/user-attachments/assets/7deb7961-4d40-47d1-81cd-1aae1b0e234d" />
+<iframe src="danceability_vs_popularity.html" width="800" height="500" frameborder="0"></iframe>
 
 The scatter plot suggests a weak positive relationship between danceability and popularity. Tracks with moderate to high danceability (approximately 0.5–0.8) appear more likely to achieve higher popularity scores, but substantial variability exists and danceability alone is not a strong predictor.
 
