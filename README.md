@@ -165,9 +165,39 @@ I do not consider this baseline model to be particularly strong because an avera
 
 
 
-## Final Model
+## Step 7 Final Model
 
-Coming soon.
+To improve upon my baseline model, I added two new features: **loudness** and **valence**.
+
+I selected **loudness** because it measures the overall volume of a track and may influence listener engagement. Louder songs are often perceived as more energetic and attention-grabbing, which could affect popularity.
+
+I also added **valence**, which measures the positivity of a track. Since listeners may respond differently to songs with different emotional tones, valence may capture information related to listener preferences that is not already represented by danceability or energy.
+
+For my final model, I continued using a **Linear Regression** model and included the following features:
+
+* danceability
+* energy
+* explicit
+* loudness
+* valence
+
+The categorical feature `explicit` was encoded using One-Hot Encoding, while all numerical features were passed through unchanged.
+
+To select the best hyperparameter configuration, I used **GridSearchCV** with 5-fold cross-validation. I tuned the `fit_intercept` parameter by comparing:
+
+* `fit_intercept = True`
+* `fit_intercept = False`
+
+The best-performing configuration was:
+
+`fit_intercept = True`
+
+The final model achieved an RMSE of approximately **22.13**, compared to the baseline model RMSE of **22.22**.
+
+Although the improvement is relatively small, the final model performed slightly better than the baseline model. This suggests that loudness and valence provide additional information about track popularity beyond the features used in the baseline model.
+
+Overall, popularity appears to be difficult to predict using only a small set of audio features, but the final model demonstrates a modest improvement while maintaining a simple and interpretable modeling approach.
+
 
 ## Fairness Analysis
 
