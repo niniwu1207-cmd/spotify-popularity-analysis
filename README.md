@@ -100,7 +100,7 @@ The plot below shows the distribution of energy for tracks with and without miss
 
 A permutation test produced an observed difference in mean energy of approximately 0.140 and a p-value of approximately 0.000, providing strong evidence that tempo missingness depends on energy:
 
-<iframe src="energy_permutation_test.html" width="100%" height="500" frameborder="0"></iframe>
+<iframe src="energy_permutation_test.html" width="800" height="500" frameborder="0"></iframe>
 
 
 
