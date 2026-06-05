@@ -79,7 +79,7 @@ To investigate whether tempo missingness depends on other variables, I ran permu
 
 For instance: 
 
-
+<iframe src="missingness_energy.html" width="800" height="500" frameborder="0"></iframe>
 
 The observed difference in mean energy between tracks with and without missing tempo was approximately 0.140 (p-value ≈ 0.000), suggesting tempo missingness does depend on energy. In contrast, the permutation test for key produced a p-value of 0.316, suggesting tempo missingness does not depend on key. These results are consistent with a MAR mechanism rather than MCAR.
 
