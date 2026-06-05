@@ -142,12 +142,28 @@ I will use RMSE (Root Mean Squared Error) to evaluate model performance.
 
 RMSE is appropriate because popularity is a continuous numerical variable. It also penalizes larger prediction errors more heavily than smaller ones, making it a useful measure of how accurately the model predicts popularity scores.
 
+## Step 6
+For my baseline model, I used a Linear Regression model to predict Spotify track popularity.
+
+The model uses three features:
+
+1. danceability (quantitative)
+2. energy (quantitative)
+3. explicit (nominal categorical)
+
+There are two quantitative features, one nominal feature, and no ordinal features.
+
+Since explicit is a categorical variable with values True and False, I applied One-Hot Encoding using OneHotEncoder within a sklearn Pipeline. The quantitative variables (danceability and energy) were passed through without transformation.
+
+The entire preprocessing and modeling workflow was implemented in a single sklearn Pipeline consisting of a ColumnTransformer and a Linear Regression model.
+
+To evaluate model performance, I used RMSE (Root Mean Squared Error), which is appropriate because popularity is a continuous numerical variable ranging from 0 to 100.
+
+The baseline model achieved an RMSE of approximately 22.22 on the test set.
+
+I do not consider this baseline model to be particularly strong because an average prediction error of about 22 popularity points is relatively large compared to the 0–100 popularity scale. However, it provides a useful starting point for comparison when developing a more sophisticated model in Step 7.
 
 
-
-## Baseline Model
-
-The baseline model predicts the average popularity score.
 
 ## Final Model
 
