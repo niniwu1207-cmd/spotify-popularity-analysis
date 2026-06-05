@@ -4,7 +4,7 @@ Yi-Ning Wu
 
 ## Step 1: Research Question
 
-###What factors are associated with Spotify track popularity?
+### What factors are associated with Spotify track popularity?
 
 This project investigates which audio features are associated with Spotify track popularity. The dataset contains 114,000 tracks and 22 columns describing various characteristics of songs.
 
@@ -76,7 +76,7 @@ Overall, the results suggest that tempo missingness is not MCAR and may instead 
 
 
 ## Step 4: Hypothesis Testing
-###Research Question:
+### Research Question:
 
 Do explicit tracks have different popularity scores than non-explicit tracks?
 
@@ -88,7 +88,7 @@ Tracks with explicit content and tracks without explicit content come from the s
 
 Tracks with explicit content and tracks without explicit content come from different popularity distributions.
 
-###Test Statistic:
+### Test Statistic:
 
 I used the absolute difference in mean popularity between explicit and non-explicit tracks.
 
