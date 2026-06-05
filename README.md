@@ -68,6 +68,7 @@ The table below compares average popularity between explicit and non-explicit tr
 | False | 25.9469 | 4561 |
 | True | 28.8724 | 439 |
 
+Table 1. Average popularity by explicit content status.
 
 Explicit tracks have a higher average popularity score (28.87) than non-explicit tracks (25.95), despite being a much smaller group (439 vs. 4,561 tracks). This preliminary finding motivates the hypothesis test in Step 4.
 
@@ -75,18 +76,36 @@ Explicit tracks have a higher average popularity score (28.87) than non-explicit
 ## Assessment of Missingness
 
 ### NMAR Analysis
-The tempo column may be NMAR (Not Missing At Random). Songs with unusual or difficult-to-estimate tempos may be more likely to have missing tempo values — meaning the missingness could depend on the unobserved tempo value itself. Additional information about how Spotify's algorithm extracts tempo from audio signals could help determine whether the missingness is actually MAR instead.
+The tempo column could be NMAR (Not Missing At Random). One possible explanation is that songs with unusual or difficult-to-estimate tempos are more likely to have missing tempo values. In this case, the missingness would depend on the unobserved tempo value itself.
+
+Additional information about Spotify's tempo extraction process could help explain the missingness. If missing tempo values are caused by characteristics of the audio processing system rather than the tempo itself, the missingness may instead be MAR.
+
 
 ### Missingness Dependency
 
-To investigate whether tempo missingness depends on other variables, I ran permutation tests using the absolute difference in group means as the test statistic.
+To investigate whether tempo missingness depends on observed variables, I created a Boolean variable called tempo_missing and conducted permutation tests using the absolute difference in group means as the test statistic.
 
-For instance: 
+For energy, the observed difference in mean energy was approximately 0.140, and the permutation test produced a p-value of approximately 0.000. This suggests that tempo missingness depends on energy.
+
+For popularity, the observed difference in mean popularity was approximately 4.57, and the permutation test produced a p-value of approximately 0.000. This suggests that tempo missingness depends on popularity.
+
+For key, the observed difference in mean key was approximately 0.116, and the permutation test produced a p-value of approximately 0.316. This provides insufficient evidence that tempo missingness depends on key.
+
+Overall, tempo missingness appears to depend on some observed variables (energy and popularity), making a MAR mechanism more plausible than MCAR.
+
+
+The plot below shows the distribution of energy for tracks with and without missing tempo values. Tracks with missing tempo values tend to have lower energy levels on average, suggesting that tempo missingness may depend on energy.
 
 <iframe src="missingness_energy.html" width="800" height="500" frameborder="0"></iframe>
 
+A permutation test produced an observed difference in mean energy of approximately 0.140 and a p-value of approximately 0.000, providing strong evidence that tempo missingness depends on energy.
 
-The observed difference in mean energy between tracks with and without missing tempo was approximately 0.140 (p-value ≈ 0.000), suggesting tempo missingness does depend on energy. In contrast, the permutation test for key produced a p-value of 0.316, suggesting tempo missingness does not depend on key. These results are consistent with a MAR mechanism rather than MCAR.
+
+
+
+
+
+
 
 
 ## Hypothesis Testing
